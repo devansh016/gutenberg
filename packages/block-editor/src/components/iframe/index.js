@@ -133,6 +133,12 @@ function Iframe( {
 		}
 		function onLoad() {
 			const { contentDocument, ownerDocument } = node;
+			// Ensure the iframe's contentDocument is available before proceeding.
+			// This prevents errors when the iframe content is not yet loaded or accessible.
+			// Once verified, initialize iFrameDocument and destructure documentElement.
+			if ( ! contentDocument ) {
+				return;
+			}
 			const { documentElement } = contentDocument;
 			iFrameDocument = contentDocument;
 
