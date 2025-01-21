@@ -15,6 +15,7 @@ import { Platform } from '@wordpress/element';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { store as coreStore } from '@wordpress/core-data';
 import { store as preferencesStore } from '@wordpress/preferences';
+import { decodeEntities } from '@wordpress/html-entities';
 
 /**
  * Internal dependencies
@@ -999,7 +1000,9 @@ export function getPermalink( state ) {
 export function getEditedPostSlug( state ) {
 	return (
 		getEditedPostAttribute( state, 'slug' ) ||
-		cleanForSlug( getEditedPostAttribute( state, 'title' ) ) ||
+		cleanForSlug(
+			decodeEntities( getEditedPostAttribute( state, 'title' ) )
+		) ||
 		getCurrentPostId( state )
 	);
 }
